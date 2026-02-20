@@ -1,0 +1,9 @@
+[package]
+name = "specs"
+edition = "2024.beta"
+
+[dependencies]
+suins_auction = { local = ".." }
+
+[addresses]
+specs = "0x0"
