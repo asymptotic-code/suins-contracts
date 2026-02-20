@@ -629,6 +629,18 @@ fun is_valid_auction_version(auction_table: &AuctionTable): bool {
     auction_table.version == version()
 }
 
+// Spec-only getters for prover access
+
+#[test_only]
+public fun spec_get_version(auction_table: &AuctionTable): u64 {
+    auction_table.version
+}
+
+#[test_only]
+public fun spec_get_service_fee(auction_table: &AuctionTable): u64 {
+    auction_table.service_fee
+}
+
 // Testing functions
 
 #[test_only]

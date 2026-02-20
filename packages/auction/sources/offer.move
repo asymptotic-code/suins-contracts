@@ -605,6 +605,18 @@ fun domain_offers_borrow_mut(
     offers
 }
 
+// Spec-only getters for prover access
+
+#[test_only]
+public fun spec_get_version(offer_table: &OfferTable): u64 {
+    offer_table.version
+}
+
+#[test_only]
+public fun spec_get_service_fee(offer_table: &OfferTable): u64 {
+    offer_table.service_fee
+}
+
 #[test_only]
 public fun get_offer_table(offer_table: &OfferTable): &Table<vector<u8>, Bag> {
     &offer_table.table
