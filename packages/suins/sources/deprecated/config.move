@@ -27,15 +27,15 @@ public fun new(
     _five_plus_char_price: u64,
 ): Config { abort 1337 }
 
-public fun set_public_key(_: &mut Config, _: vector<u8>) { abort 1337 }
+public fun set_public_key(_config: &mut Config, _key: vector<u8>) { abort 1337 }
 
-public fun set_three_char_price(_: &mut Config, _: u64) { abort 1337 }
+public fun set_three_char_price(_config: &mut Config, _price: u64) { abort 1337 }
 
-public fun set_four_char_price(_: &mut Config, _: u64) { abort 1337 }
+public fun set_four_char_price(_config: &mut Config, _price: u64) { abort 1337 }
 
-public fun set_five_plus_char_price(_: &mut Config, _: u64) { abort 1337 }
+public fun set_five_plus_char_price(_config: &mut Config, _price: u64) { abort 1337 }
 
-public fun calculate_price(_: &Config, _: u8, _: u8): u64 { abort 1337 }
+public fun calculate_price(_config: &Config, _len: u8, _years: u8): u64 { abort 1337 }
 
 public fun public_key(_: &Config): &vector<u8> { abort 1337 }
 
