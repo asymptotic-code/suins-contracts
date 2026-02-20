@@ -3,41 +3,66 @@
 [move]
 version = 3
 manifest_digest = "1C2AB0A6BCA4A5194B206114279E823BB97F145452B43AF25B4EC603AB91E6B6"
-deps_digest = "52B406A7A21811BEF51751CF88DA0E76DAEFFEAC888D4F4060B1A72BBE7D8D35"
+deps_digest = "CAFAD8A7CF51067FB4358215BECB86BD100DD64E57C2AC8A7AE7D74B688F5965"
 dependencies = [
-  { id = "Bridge", name = "Bridge" },
+  { id = "DeepBook", name = "DeepBook" },
   { id = "MoveStdlib", name = "MoveStdlib" },
   { id = "Sui", name = "Sui" },
+  { id = "SuiProver", name = "SuiProver" },
   { id = "SuiSystem", name = "SuiSystem" },
   { id = "seal", name = "seal" },
   { id = "suins", name = "suins" },
 ]
 
 [[move.package]]
-id = "Bridge"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "ad937889f2f99bc666b05aaeadccb0d3d7d1f863", subdir = "crates/sui-framework/packages/bridge" }
+id = "DeepBook"
+source = { git = "https://github.com/asymptotic-code/sui.git", rev = "next", subdir = "crates/sui-framework/packages/deepbook" }
 
 dependencies = [
   { id = "MoveStdlib", name = "MoveStdlib" },
   { id = "Sui", name = "Sui" },
-  { id = "SuiSystem", name = "SuiSystem" },
 ]
 
 [[move.package]]
 id = "MoveStdlib"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "ad937889f2f99bc666b05aaeadccb0d3d7d1f863", subdir = "crates/sui-framework/packages/move-stdlib" }
+source = { git = "https://github.com/asymptotic-code/sui.git", rev = "next", subdir = "crates/sui-framework/packages/move-stdlib" }
 
 [[move.package]]
-id = "Sui"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "ad937889f2f99bc666b05aaeadccb0d3d7d1f863", subdir = "crates/sui-framework/packages/sui-framework" }
+id = "Prover"
+source = { git = "https://github.com/asymptotic-code/sui-prover.git", rev = "main", subdir = "packages/prover" }
 
 dependencies = [
   { id = "MoveStdlib", name = "MoveStdlib" },
 ]
 
 [[move.package]]
+id = "Sui"
+source = { git = "https://github.com/asymptotic-code/sui.git", rev = "next", subdir = "crates/sui-framework/packages/sui-framework" }
+
+dependencies = [
+  { id = "MoveStdlib", name = "MoveStdlib" },
+]
+
+[[move.package]]
+id = "SuiProver"
+source = { git = "https://github.com/asymptotic-code/sui-prover.git", rev = "main", subdir = "packages/sui-prover" }
+
+dependencies = [
+  { id = "SuiSpecs", name = "SuiSpecs" },
+]
+
+[[move.package]]
+id = "SuiSpecs"
+source = { git = "https://github.com/asymptotic-code/sui-prover.git", rev = "main", subdir = "packages/sui-specs" }
+
+dependencies = [
+  { id = "Prover", name = "Prover" },
+  { id = "Sui", name = "Sui" },
+]
+
+[[move.package]]
 id = "SuiSystem"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "ad937889f2f99bc666b05aaeadccb0d3d7d1f863", subdir = "crates/sui-framework/packages/sui-system" }
+source = { git = "https://github.com/asymptotic-code/sui.git", rev = "next", subdir = "crates/sui-framework/packages/sui-system" }
 
 dependencies = [
   { id = "MoveStdlib", name = "MoveStdlib" },
@@ -52,6 +77,11 @@ dependencies = [
   { id = "Sui", name = "Sui" },
 ]
 
+[move.toolchain-version]
+compiler-version = "1.62.0"
+edition = "2024.beta"
+flavor = "sui"
+
 [[move.package]]
 id = "suins"
 source = { local = "../suins" }
@@ -59,11 +89,6 @@ source = { local = "../suins" }
 dependencies = [
   { id = "Sui", name = "Sui" },
 ]
-
-[move.toolchain-version]
-compiler-version = "1.62.0"
-edition = "2024.beta"
-flavor = "sui"
 
 [env]
 
