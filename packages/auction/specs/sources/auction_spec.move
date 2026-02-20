@@ -92,5 +92,29 @@ public fun place_bid_spec<T>(
         );
     };
 
+    // Capture pre-call state
+    let old_highest_bidder = auction::spec_get_highest_bidder<T>(auction_table, domain);
+    let sender = ctx.sender();
+
     auction::place_bid<T>(auction_table, domain_name, coin, clock, ctx);
+
+    // Postconditions — contains check must come first for bag access in ensures
+    ensures(auction::spec_auction_exists<T>(auction_table, domain));
+
+    // New bidder and bid amount
+    ensures(auction::spec_get_highest_bidder<T>(auction_table, domain) == sender);
+    ensures(auction::spec_get_highest_bid_value<T>(auction_table, domain) == bid_amount);
+
+    // End time: extended if bid in last bid_extend_time(), otherwise unchanged
+    if (end_time - now < bid_extend_time()) {
+        ensures(auction::spec_get_end_time<T>(auction_table, domain) == now + bid_extend_time());
+    } else {
+        ensures(auction::spec_get_end_time<T>(auction_table, domain) == end_time);
+    };
+
+    // Previous bidder refunded via transfer
+    if (highest_bid_value > 0) {
+        ensures(*ghost::global<SpecTransferAddressExists, bool>());
+        ensures(*ghost::global<SpecTransferAddress, address>() == old_highest_bidder);
+    };
 }

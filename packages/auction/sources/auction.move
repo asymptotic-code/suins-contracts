@@ -666,6 +666,11 @@ public fun spec_get_highest_bid_value<T>(auction_table: &AuctionTable, domain: v
     object_bag::borrow<vector<u8>, Auction<T>>(&auction_table.bag, domain).highest_bid_balance.value()
 }
 
+#[test_only]
+public fun spec_get_highest_bidder<T>(auction_table: &AuctionTable, domain: vector<u8>): address {
+    object_bag::borrow<vector<u8>, Auction<T>>(&auction_table.bag, domain).highest_bidder
+}
+
 // Testing functions
 
 #[test_only]
