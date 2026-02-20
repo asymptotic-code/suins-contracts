@@ -641,6 +641,31 @@ public fun spec_get_service_fee(auction_table: &AuctionTable): u64 {
     auction_table.service_fee
 }
 
+#[test_only]
+public fun spec_auction_exists<T>(auction_table: &AuctionTable, domain: vector<u8>): bool {
+    auction_table.bag.contains_with_type<vector<u8>, Auction<T>>(domain)
+}
+
+#[test_only]
+public fun spec_get_start_time<T>(auction_table: &AuctionTable, domain: vector<u8>): u64 {
+    object_bag::borrow<vector<u8>, Auction<T>>(&auction_table.bag, domain).start_time
+}
+
+#[test_only]
+public fun spec_get_end_time<T>(auction_table: &AuctionTable, domain: vector<u8>): u64 {
+    object_bag::borrow<vector<u8>, Auction<T>>(&auction_table.bag, domain).end_time
+}
+
+#[test_only]
+public fun spec_get_min_bid<T>(auction_table: &AuctionTable, domain: vector<u8>): u64 {
+    object_bag::borrow<vector<u8>, Auction<T>>(&auction_table.bag, domain).min_bid
+}
+
+#[test_only]
+public fun spec_get_highest_bid_value<T>(auction_table: &AuctionTable, domain: vector<u8>): u64 {
+    object_bag::borrow<vector<u8>, Auction<T>>(&auction_table.bag, domain).highest_bid_balance.value()
+}
+
 // Testing functions
 
 #[test_only]
